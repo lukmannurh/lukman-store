@@ -2,7 +2,7 @@
 
 ## Design Read
 Toko akun game dan jasa untuk gamer Indonesia, gaya tegas dan langsung.
-Dial: ENERGY 2 / RHYTHM 2 / MOTION 2 (naik dari 1 atas permintaan Lukman 17 Nov: sisi kanan hero kosong, minta ada desain/animasi 3D bergerak).
+Dial: ENERGY 2 / RHYTHM 2 / MOTION 1.
 
 ## Palet
 - Ink `#191d21` (teks dan tombol sekunder)
@@ -39,7 +39,7 @@ Kartu QR: kartu putih, garis atas merah, kode QR, nama toko, NMID.
 Muncul sekali, di bagian bayar, sebagai penanda toko ini.
 
 ## Motion
-MOTION 2: hover + glow merah lembut yang melayang di belakang kartu showcase (animasi CSS `translateY` 9 detik, tanpa library/gambar). Kartu showcase sendiri DIAM (miring 3D statis): tombol yang terus bergerak tidak bisa diklik, terbukti di test Playwright menunggu stabil 30 detik. Gerakan hanya transform, mati total di `prefers-reduced-motion`. Tanpa animasi scroll, tanpa fade-in.
+MOTION 1: hanya hover. Tanpa animasi scroll, tanpa fade-in, tanpa gerakan terus-menerus. (Versi MOTION 2 — kartu miring 3D + glow melayang — DITOLAK Lukman 17 Nov: "jelek banget". Alasan teknis tambahan: tombol yang terus bergerak tidak bisa diklik andal, terbukti di test Playwright menunggu stabil 30 detik.)
 
 ## Showcase hero
-Tiga kartu akun termahal dari `PRODUCTS` (otomatis, ikut berubah saat produk diganti), lengkap dengan tombol tambah yang sama dengan kartu produk. Kartu tersusun miring ke kiri (offset 0/-12/-24px, ke arah celah antar kolom supaya tidak meluber) dan melayang naik-turun.
+Tiga kartu akun termahal dari `PRODUCTS` (otomatis, ikut berubah saat produk diganti), lengkap dengan tombol tambah yang sama dengan kartu produk. Kartu DATAR, sejajar, tanpa miring/offset/animasi/dekor — dibedakan dari kartu produk biasa hanya oleh garis atas merah 3px (motif kartu QR).
