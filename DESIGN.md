@@ -36,7 +36,7 @@ Tiap bagian beda bentuk, bukan judul tengah + grid kartu yang sama:
 
 ## Motif identitas
 Kartu QR: kartu putih, garis atas merah, kode QR, nama toko, NMID.
-Muncul dua kali (hero dan bagian bayar) sebagai penanda toko ini.
+Muncul sekali, di bagian bayar, sebagai penanda toko ini.
 
 ## Motion
 MOTION 1: hanya hover. Tanpa animasi scroll, tanpa fade-in.
