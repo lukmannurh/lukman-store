@@ -44,7 +44,7 @@ p { margin: 0 0 1rem; }
   border-bottom: 1px solid var(--line);
 }
 .header-inner { display: flex; align-items: center; gap: .6rem; min-height: 60px; position: relative; }
-.brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: var(--ink); }
+.brand { display: flex; align-items: center; gap: .6rem; min-height: 44px; text-decoration: none; color: var(--ink); }
 .brand-mark {
   width: 40px; height: 40px; border-radius: 8px; flex: none;
   background: var(--red); color: #fff;
@@ -97,30 +97,17 @@ p { margin: 0 0 1rem; }
 .btn-ghost:hover { background: var(--bg-alt); }
 .btn-block { width: 100%; }
 
-/* Hero showcase: 3 kartu akun unggulan, miring 3D (CSS saja).
-   Kartu TIDAK dianimasikan: tombol yang terus bergerak tidak bisa diklik
-   (terbukti di test, Playwright menunggu stabil 30 detik). Gerakan ada di
-   dekorasi glow di belakang kartu, bukan di kartunya. */
-.hero-showcase { position: relative; display: grid; gap: .75rem; align-content: start; }
-.show-decor {
-  position: absolute; border-radius: 50%; pointer-events: none;
-  background: radial-gradient(circle, rgba(200, 16, 46, .14), rgba(200, 16, 46, 0) 70%);
-  animation: decor-float 9s ease-in-out infinite;
-}
-.decor-1 { width: 260px; height: 260px; top: 0; right: 0; }
-.decor-2 { width: 180px; height: 180px; bottom: 0; left: 0; animation-delay: -4.5s; }
-@keyframes decor-float {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 -14px; }
-}
-.showcase-label { font-weight: 800; margin: 0; position: relative; }
-.showcase-cards { display: grid; gap: 1rem; perspective: 1100px; position: relative; }
+/* Hero showcase: 3 kartu akun unggulan, DATAR dan rapi.
+   Versi 3D sebelumnya (miring + melayang + glow) DITOLAK Lukman 17 Nov
+   ("jelek banget"). Kartu di sini sengaja polos dan sejajar dengan kartu
+   produk di bawah, hanya dibedakan garis atas merah (motif kartu QR). */
+.hero-showcase { display: grid; gap: .75rem; align-content: start; }
+.showcase-label { font-weight: 800; margin: 0; }
+.showcase-cards { display: grid; gap: 1rem; }
 .show-card {
-  background: #fff; border: 1px solid var(--line); border-radius: var(--radius-card);
-  padding: 1rem 1.1rem; --tx: 0px;
+  background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--red);
+  border-radius: var(--radius-card); padding: 1rem 1.1rem;
 }
-.show-card.sc-2 { --tx: -12px; }
-.show-card.sc-3 { --tx: -24px; }
 .show-card .product-game { margin-bottom: .15rem; }
 .show-card h3 { margin: .15rem 0 .25rem; }
 .show-card .product-unit { margin: 0 0 .5rem; }
@@ -281,7 +268,6 @@ p { margin: 0 0 1rem; }
   .main-nav a:hover { color: var(--red); }
   .cart-btn { margin-left: 0; }
   .hero-inner { grid-template-columns: 1.05fr .95fr; align-items: start; }
-  .show-card { transform: rotateY(-6deg) rotateX(2deg) translateX(var(--tx)); }
   .qr-card { max-width: 340px; margin-left: auto; }
   .toolbar { flex-direction: row; align-items: center; justify-content: space-between; }
   .search { width: 300px; flex: none; }
@@ -296,5 +282,4 @@ p { margin: 0 0 1rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .show-decor { animation: none; }
 }
