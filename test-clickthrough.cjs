@@ -21,10 +21,11 @@ function check(name, ok, detail = '') { results.push({ name, ok, detail }); cons
   // 2. 10 kartu produk tampil
   check('10 kartu produk', (await page.locator('.product-card').count()) === 10, 'count=' + await page.locator('.product-card').count());
 
-  // 2b. Showcase hero: 3 kartu akun unggulan + dekor bergerak + tambah lalu hapus
+  // 2b. Showcase hero: 3 kartu akun unggulan DATAR + tambah lalu hapus
   check('showcase 3 kartu', (await page.locator('.show-card').count()) === 3, 'count=' + await page.locator('.show-card').count());
-  const scAnim = await page.evaluate(() => { const el = document.querySelector('.show-decor'); return el ? getComputedStyle(el).animationName : ''; });
-  check('dekor showcase ada animasi float', scAnim === 'decor-float', scAnim);
+  check('showcase tanpa dekor', (await page.locator('.show-decor').count()) === 0);
+  const scTransform = await page.evaluate(() => { const el = document.querySelector('.show-card'); return el ? getComputedStyle(el).transform : ''; });
+  check('showcase kartu datar (tanpa transform)', scTransform === 'none', scTransform);
   await page.locator('.showcase-cards [data-add]').first().click();
   check('showcase tambah: cart count 1', (await page.locator('#cartCount').innerText()) === '1');
   await page.locator('#cartBtn').click();
