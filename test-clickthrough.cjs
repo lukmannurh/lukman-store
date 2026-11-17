@@ -89,11 +89,12 @@ function check(name, ok, detail = '') { results.push({ name, ok, detail }); cons
   });
   check('focus-visible Tab: outline 3px solid', focus.outline.includes('solid') && focus.outline.includes('3px'), JSON.stringify(focus));
 
-  // 13. QR hero tampil + dimensi
+  // 13. QR tinggal SATU (bagian bayar), tampil + dimensi
+  check('QR hanya 1 di halaman', (await page.locator('.qr-card img').count()) === 1);
   const qr = page.locator('.qr-card img').first();
   check('gambar QR tampil', await qr.isVisible());
   check('QR punya width/height', (await qr.getAttribute('width')) === '400' && (await qr.getAttribute('height')) === '400');
-  check('QR hero fetchpriority high', (await qr.getAttribute('fetchpriority')) === 'high');
+  check('QR bayar loading lazy', (await qr.getAttribute('loading')) === 'lazy');
 
   // 14. Tidak ada console error
   check('0 console/page error', errors.length === 0, errors.join(' ; '));
