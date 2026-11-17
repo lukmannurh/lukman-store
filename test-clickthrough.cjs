@@ -21,6 +21,18 @@ function check(name, ok, detail = '') { results.push({ name, ok, detail }); cons
   // 2. 10 kartu produk tampil
   check('10 kartu produk', (await page.locator('.product-card').count()) === 10, 'count=' + await page.locator('.product-card').count());
 
+  // 2b. Showcase hero: 3 kartu akun unggulan + dekor bergerak + tambah lalu hapus
+  check('showcase 3 kartu', (await page.locator('.show-card').count()) === 3, 'count=' + await page.locator('.show-card').count());
+  const scAnim = await page.evaluate(() => { const el = document.querySelector('.show-decor'); return el ? getComputedStyle(el).animationName : ''; });
+  check('dekor showcase ada animasi float', scAnim === 'decor-float', scAnim);
+  await page.locator('.showcase-cards [data-add]').first().click();
+  check('showcase tambah: cart count 1', (await page.locator('#cartCount').innerText()) === '1');
+  await page.locator('#cartBtn').click();
+  await page.locator('[data-remove="ml-glory"]').click();
+  check('showcase hapus: cart count 0', (await page.locator('#cartCount').innerText()) === '0');
+  check('drawer kosong tampil', await page.locator('.cart-empty').isVisible());
+  await page.locator('#cartClose').click();
+
   // 3. Tambah 2 akun, hitung total, buka drawer
   await page.locator('[data-add="coc-th13"]').click();
   await page.locator('[data-add="ml-mythic"]').click();
