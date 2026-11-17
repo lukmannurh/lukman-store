@@ -65,6 +65,25 @@ function renderProducts() {
   }).join("");
 }
 
+/* Showcase hero: 3 akun termahal (otomatis mengikuti PRODUCTS). */
+function renderShowcase() {
+  var el = $("heroShowcase");
+  if (!el) return;
+  var top = PRODUCTS.slice().sort(function (a, b) { return b.price - a.price; }).slice(0, 3);
+  el.innerHTML = top.map(function (p, i) {
+    var inCart = cart[p.id] || 0;
+    return '<article class="show-card sc-' + (i + 1) + '">' +
+      '<p class="product-game">' + CAT_LABEL[p.cat] + '</p>' +
+      (p.tag ? '<span class="product-tag">' + esc(p.tag) + '</span>' : "") +
+      '<h3>' + esc(p.name) + '</h3>' +
+      '<p class="product-unit">' + esc(p.unit) + '</p>' +
+      '<p class="product-price">' + rupiah(p.price) + '</p>' +
+      '<button type="button" class="product-add' + (inCart ? " added" : "") + '" data-add="' + esc(p.id) + '"' + (inCart ? " disabled" : "") + '>' +
+      (inCart ? "Di Keranjang ✓" : "Tambah ke Keranjang") + '</button>' +
+      '</article>';
+  }).join("");
+}
+
 function saveCart() { try { localStorage.setItem("ls-cart", JSON.stringify(cart)); } catch (e) {} }
 
 function cartCount() {
@@ -144,13 +163,13 @@ document.addEventListener("click", function (e) {
     var id = add.getAttribute("data-add");
     var p = PRODUCTS.filter(function (x) { return x.id === id; })[0];
     if (p && !cart[id]) cart[id] = 1; /* tiap akun unik, stok 1: tidak ada qty */
-    saveCart(); renderProducts(); renderCart();
+    saveCart(); renderProducts(); renderShowcase(); renderCart();
     return;
   }
   var rem = e.target.closest("[data-remove]");
   if (rem) {
     delete cart[rem.getAttribute("data-remove")];
-    saveCart(); renderProducts(); renderCart();
+    saveCart(); renderProducts(); renderShowcase(); renderCart();
     return;
   }
   var chip = e.target.closest("[data-filter]");
@@ -219,4 +238,5 @@ $("copyBtn").addEventListener("click", function () {
 })();
 
 renderProducts();
+renderShowcase();
 renderCart();
